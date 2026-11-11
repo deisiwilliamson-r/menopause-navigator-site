@@ -29,6 +29,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ch);mi
 .cta{display:block;width:100%;background:var(--sage);color:#fff;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:500;line-height:1.35;text-decoration:none;text-align:center;padding:18px 20px;border-radius:12px;box-shadow:0 2px 8px rgba(30,92,62,.25);}
 .cta:active{background:var(--sd);}
 .note{font-size:13px;line-height:1.6;color:var(--mid);margin-top:14px;margin-bottom:32px;}
+.invite{width:100%;background:var(--sl);border:1px solid var(--sm);border-radius:12px;padding:20px 20px;font-size:15px;line-height:1.7;color:var(--ch);margin-bottom:28px;}
+.invite strong{display:block;font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--sd);margin-bottom:8px;}
+.invite a{color:var(--sd);text-decoration:none;font-weight:500;}
 .help{width:100%;background:var(--sl);border:1px solid var(--sm);border-radius:12px;padding:16px 18px;font-size:14px;line-height:1.7;color:var(--ch);margin-bottom:28px;}
 .help strong{display:block;font-weight:500;margin-bottom:4px;}
 .help a{color:var(--sd);text-decoration:none;font-weight:500;}
@@ -39,6 +42,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ch);mi
   .wordmark{font-size:28px;}
   .main{padding-top:48px;}
   .cta{max-width:360px;}
+  .invite{max-width:360px;}
 }
 </style>
 </head>
@@ -47,7 +51,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ch);mi
 <div class="main">
   <p class="intro">A free, private study for people 40 to 65 who were assigned female at birth, have been affected by the justice system, and are going through menopause.</p>
   <p class="welcome">Women, transgender men, and nonbinary people are all welcome.</p>
-  <a class="cta" href="https://depaul.qualtrics.com/jfe/form/SV_733alt61cJMDkfc">Start the 2-minute eligibility check</a>
+
+  <!-- Invite-only notice: shown by default (fails safe if JS is off) -->
+  <div id="inviteNote" class="invite">
+    <strong>We're enrolling by invitation right now.</strong>
+    We've had a wonderful response and are adding people one at a time. Text or call <a href="tel:+13123730216">(312) 373-0216</a> and we'll send you your own link to join.
+  </div>
+
+  <!-- Real survey button: hidden until the access tag is present -->
+  <a id="ctaBtn" class="cta" href="https://depaul.qualtrics.com/jfe/form/SV_733alt61cJMDkfc" style="display:none;">Start the 2-minute eligibility check</a>
+
   <p class="note">Taking part is your choice. It will not affect any services you receive. Up to $25 in gift cards for completing the surveys.</p>
   <p class="note"><a href="information-sheet.html" style="color:var(--sd);font-weight:500;">Read the study information sheet</a></p>
   <div class="help">
@@ -58,5 +71,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ch);mi
 <div class="footer">This is an educational study, not medical advice. Deisi Williamson, Project Lead, DePaul University School of Nursing. Voluntary participation; approved by the DePaul IRB, protocol IRB-2026-1991.
   <div class="reviewer">For IRB reviewers: <a href="tool/">preview the decision-support tool</a></div>
 </div>
+<script>
+  // Access gate: the survey button appears only when the link carries ?j=7fx2n9k
+  (function(){
+    var ok = /[?&]j=7fx2n9k(&|$)/.test(window.location.search);
+    var btn = document.getElementById('ctaBtn');
+    var note = document.getElementById('inviteNote');
+    if (ok){ btn.style.display = 'block'; note.style.display = 'none'; }
+    else   { btn.style.display = 'none';  note.style.display = 'block'; }
+  })();
+</script>
 </body>
 </html>
